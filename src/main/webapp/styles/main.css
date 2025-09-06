@@ -1,0 +1,113 @@
+html, body { height: 100%; margin: 0; }
+
+body {
+    display: flex;
+    justify-content: center;   /* căn ngang */
+    align-items: center;       /* căn dọc */
+    background: #eaf2ff;       /* nền sáng */
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 12pt;
+    color: #111;
+}
+
+/* Hộp form ở giữa */
+.container {
+    width: 100%;
+    max-width: 520px;
+    background: #fff;
+    border-radius: 14px;
+    padding: 28px 32px;
+    box-shadow: 0 12px 28px rgba(0,0,0,0.10);
+}
+
+h1 {
+    margin: 0 0 18px;
+    text-align: center;
+    color: #0b57d0;                  /* xanh dương đậm */
+    font-weight: 800;                /* in đậm */
+    letter-spacing: .4px;
+    text-transform: uppercase;
+}
+.form-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 14px;             /* khoảng cách đều nhau */
+    padding: 10px 12px;
+    border: 1px solid #d5e3ff;
+    border-radius: 10px;
+    background: #fff;
+}
+
+label {
+    width: 130px;
+    min-width: 130px;
+    font-weight: 600;
+    color: #1f3a6d;
+}
+
+input[type="text"], input[type="email"] {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #bfd1ff;
+    border-radius: 8px;
+    outline: none;
+}
+input[type="text"]:focus, input[type="email"]:focus {
+    border-color: #0b57d0;
+    box-shadow: 0 0 0 3px rgba(11,87,208,.15);
+}
+
+#submit {
+    display: block;
+    margin: 8px auto 0;              /* căn giữa */
+    padding: 12px 24px;
+    background: #0b57d0;             /* xanh dương đậm */
+    color: #fff;
+    font-weight: 800;                 /* in đậm */
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+}
+#submit:hover { filter: brightness(.95); }
+.alert {
+    margin-bottom: 12px;
+    padding: 10px;
+    background: #ffe6e6;
+    color: #b10000;
+    border-radius: 8px;
+    text-align: center;
+}
+/* Áp dụng cho trang cảm ơn */
+
+/* Tiêu đề vẫn căn giữa */
+.thanks-container h1 {
+    text-align: center;
+    color: #0b57d0;
+    font-weight: 800;
+    text-transform: uppercase;
+}
+/* Style cho dòng mô tả */
+.thanks-container .description {
+    text-align: center;
+    font-weight: 700;
+    margin: 10px auto 20px;
+    max-width: 500px;
+    font-size: 20px;
+    color: #0b57d0;    /* màu chữ bình thường */
+}
+/* Grid cho phần thông tin */
+.info-grid {
+    display: grid;
+    grid-template-columns: 90px auto;  /* cột trái 150px, cột phải co giãn */
+    gap: 15px 10px;                  /* khoảng cách hàng và cột */
+    justify-content: center;            /* căn giữa cả grid trong khung */
+    margin: 20px auto;
+    max-width: 500px;
+    text-align: left;
+    color: #0b57d0;
+}
+
+.info-grid strong {
+    font-weight: 700;
+}
