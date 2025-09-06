@@ -14,52 +14,38 @@ public class EmailListServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        // Đảm bảo UTF-8 cho dữ liệu tiếng Việt
         request.setCharacterEncoding("UTF-8");
         response.setCharacterEncoding("UTF-8");
 
         String action = request.getParameter("action");
         if (action == null) action = "join";
 
-        switch (action) {
-            case "add" -> {
-                String firstName = request.getParameter("firstName");
-                String lastName  = request.getParameter("lastName");
-                String email     = request.getParameter("email");
+        if ("add".equals(action)) {
+            String firstName = request.getParameter("firstName");
+            String lastName  = request.getParameter("lastName");
+            String email     = request.getParameter("email");
 
-                // Validate đơn giản
-                if (isBlank(firstName) || isBlank(lastName) || isBlank(email)) {
-                    request.setAttribute("message", "Nhập thiếu nội dung!");
-                    // Trả lại form kèm dữ liệu đã nhập (request scope)
-                    request.setAttribute("firstName", firstName);
-                    request.setAttribute("lastName",  lastName);
-                    request.setAttribute("email",     email);
-                    request.getRequestDispatcher("/index.jsp").forward(request, response);
-                    return;
-                }
-
-                // (Tùy ý) lưu DB
-                User user = new User(firstName, lastName, email);
-                UserDB.insert(user);
-
-                // Lưu vào SESSION để khi Back vẫn còn dữ liệu
-                HttpSession session = request.getSession();
-                session.setAttribute("firstName", firstName);
-                session.setAttribute("lastName",  lastName);
-                session.setAttribute("email",     email);
-
-                // PRG: Redirect sang trang đích (TestServlet)
-                response.sendRedirect(request.getContextPath() + "/test");
-            }
-
-            case "join" -> {
-                // Vào trang form
+            if (isBlank(firstName) || isBlank(lastName) || isBlank(email)) {
+                request.setAttribute("message", "Nhập thiếu nội dung!");
+                request.setAttribute("firstName", firstName);
+                request.setAttribute("lastName",  lastName);
+                request.setAttribute("email",     email);
                 request.getRequestDispatcher("/index.jsp").forward(request, response);
+                return;
             }
 
-            default -> {
-                request.getRequestDispatcher("/index.jsp").forward(request, response);
-            }
+            User user = new User(firstName, lastName, email);
+            UserDB.insert(user);
+
+            HttpSession session = request.getSession();
+            session.setAttribute("firstName", firstName);
+            session.setAttribute("lastName",  lastName);
+            session.setAttribute("email",     email);
+
+            response.sendRedirect(request.getContextPath() + "/test");
+            return;
+        } else { // join hoặc mặc định
+            request.getRequestDispatcher("/index.jsp").forward(request, response);
         }
     }
 
@@ -70,7 +56,6 @@ public class EmailListServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // Cho GET rẽ về form
-        request.getRequestDispatcher("/index.jsp").forward(request, response);
+        doPost(request, response);
     }
 }
