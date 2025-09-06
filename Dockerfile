@@ -1,10 +1,8 @@
 # ---- Build stage ----
-FROM maven:3.9.9-eclipse-temurin-17 AS build
+FROM maven:3.9-eclipse-temurin-17 AS build
 WORKDIR /app
-
-# copy file pom.xml để cache dependency
-COPY pom.xml .
-RUN mvn -q -DskipTests dependency:go-offline
+COPY . .
+RUN mvn -q -DskipTests package
 
 # copy source code
 COPY src ./src
